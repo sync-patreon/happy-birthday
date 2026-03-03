@@ -6,36 +6,49 @@
     body {
       margin: 0;
       height: 100vh;
-      background: url('https://i.ibb.co/7kGx3xJ/anime-background.jpg') no-repeat center center fixed;
+      background: url('https://i.ibb.co/9H1bYv9/trending-anime.jpg') no-repeat center center fixed;
       background-size: cover;
       font-family: 'Arial', sans-serif;
       color: white;
       text-align: center;
+      overflow: hidden;
     }
+
     .banner {
       font-size: 50px;
       font-weight: bold;
       text-shadow: 2px 2px 10px #000;
       margin-top: 50px;
     }
+
     .cake {
       width: 200px;
       margin-top: 20px;
     }
+
     .envelope {
       width: 100px;
       margin-top: 50px;
       cursor: pointer;
       transition: transform 0.3s;
     }
+
     .envelope:hover {
       transform: scale(1.2);
     }
+
     .message {
       display: none;
       font-size: 30px;
       margin-top: 30px;
       text-shadow: 1px 1px 5px #000;
+    }
+
+    canvas {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
     }
   </style>
 </head>
@@ -47,11 +60,44 @@
   <img class="envelope" src="https://i.ibb.co/0G0Q4nM/envelope.png" alt="Envelope" onclick="showMessage()">
   <div class="message" id="message">Sorry no gift, but wishing you good health! ❤️</div>
 
+  <canvas id="fireworks"></canvas>
+
   <script>
+    // Show birthday message
     function showMessage() {
       document.getElementById('message').style.display = 'block';
+      confetti();
     }
-  </script>
 
-</body>
-</html>
+    // Fireworks animation
+    const canvas = document.getElementById('fireworks');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let fireworks = [];
+
+    function random(min, max) { return Math.random() * (max - min) + min; }
+
+    class Firework {
+      constructor() {
+        this.x = random(0, canvas.width);
+        this.y = canvas.height;
+        this.radius = 2;
+        this.color = `hsl(${random(0, 360)}, 100%, 50%)`;
+        this.vx = random(-2, 2);
+        this.vy = random(-5, -10);
+        this.alpha = 1;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.alpha -= 0.01;
+      }
+      draw() {
+        ctx.globalAlpha = this.alpha;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+        ctx.globalAlpha =
