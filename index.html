@@ -2,9 +2,56 @@
 <html>
 <head>
   <title>Happy Birthday TL Manny!</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: url('https://i.ibb.co/7kGx3xJ/anime-background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Arial', sans-serif;
+      color: white;
+      text-align: center;
+    }
+    .banner {
+      font-size: 50px;
+      font-weight: bold;
+      text-shadow: 2px 2px 10px #000;
+      margin-top: 50px;
+    }
+    .cake {
+      width: 200px;
+      margin-top: 20px;
+    }
+    .envelope {
+      width: 100px;
+      margin-top: 50px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .envelope:hover {
+      transform: scale(1.2);
+    }
+    .message {
+      display: none;
+      font-size: 30px;
+      margin-top: 30px;
+      text-shadow: 1px 1px 5px #000;
+    }
+  </style>
 </head>
 <body>
-  <h1>🎉 Happy Birthday TL Manny! 🎉</h1>
-  <p>Click the envelope to see your message!</p>
+
+  <div class="banner">🎉 Happy Birthday TL Manny! 🎉</div>
+  <img class="cake" src="https://i.ibb.co/YfGkKfX/birthday-cake.png" alt="Cake">
+  <br>
+  <img class="envelope" src="https://i.ibb.co/0G0Q4nM/envelope.png" alt="Envelope" onclick="showMessage()">
+  <div class="message" id="message">Sorry no gift, but wishing you good health! ❤️</div>
+
+  <script>
+    function showMessage() {
+      document.getElementById('message').style.display = 'block';
+    }
+  </script>
+
 </body>
 </html>
